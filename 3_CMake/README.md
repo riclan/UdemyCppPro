@@ -55,13 +55,13 @@ If you want to generate the project, for example, in release mode you have to se
  cmake -DCMAKE_BUILD_TYPE=Release .. -G "Unix Makefiles"
 ```
 
-### Passing Variables
+### Passing Options
 
-If you have set some variables in the CMakeLists, you can pass values in the command line.
+If you have set some options in the CMakeLists, you can pass values in the command line.
 
 ```shell
  cd build
- cmake -DMY_VARIABLE=ON .. 
+ cmake -DMY_OPTION=[ON|OFF] .. 
 ```
 
 ## Build a Project:
