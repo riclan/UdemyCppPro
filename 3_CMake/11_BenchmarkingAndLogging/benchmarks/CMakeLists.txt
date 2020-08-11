@@ -1,11 +1,13 @@
 if(USE_BENCHMARKS)
     set(BENCHMARK_SOURCES   "main.cc")
     set(BENCHMARK_MAIN      "${PROJECT}_benchmarks")
-    if(WIN32)
+
+    if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         set(BENCHMARK_FLAGS "/Ox")
-    endif()
-    if(UNIX)
-        set(BENCHMARK_FLAGS "-O3")
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(BENCHMARK_FLAGS "-O2")
+    else()
+        set(BENCHMARK_FLAGS "")
     endif()
 
     add_executable(${BENCHMARK_MAIN} ${BENCHMARK_SOURCES})

@@ -5,7 +5,7 @@ target_include_directories(${LIBRARY_LINALG} INTERFACE ${LIBRARY_INCLUDES})
 
 # Loguru
 file(GLOB LOGURU_SOURCES "loguru/*.cpp")
-add_library(${LIBRARY_LOG} STATIC ${LOGURU_SOURCES})
+add_library(${LIBRARY_LOG} ${LOGURU_SOURCES})
 target_include_directories(${LIBRARY_LOG} PUBLIC loguru)
 if(UNIX)
     target_link_libraries(${LIBRARY_LOG} PUBLIC pthread dl)

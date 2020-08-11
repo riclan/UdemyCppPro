@@ -1,11 +1,10 @@
 set(TEST_SOURCES "main.cc")
 add_executable(${TEST_MAIN} ${TEST_SOURCES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     set(TEST_FLAGS "/Od")
     target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest)
-endif()
-if(UNIX)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     set(TEST_FLAGS "-O0;-g")
     target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest pthread)
 endif()
