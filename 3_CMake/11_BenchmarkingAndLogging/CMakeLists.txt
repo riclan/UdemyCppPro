@@ -19,7 +19,7 @@ set(TEST_MAIN       "${PROJECT}_unit_tests")
 
 # Options
 option(USE_GCOV         "Create a GCov-enabled build."      OFF)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build"  ON)
+option(USE_BENCHMARKS   "Create a Benchmark-enabled build"  OFF)
 
 # Configuration Files
 configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
