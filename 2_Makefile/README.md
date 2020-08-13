@@ -38,9 +38,9 @@
 
 ### Compiler Flags:
 
-  - Debug: ```-g  -glevel```
-  - Release: ```-O  -O0  -O1  -O2  -O3  -Os  -Ofast  -Og```
-  - Includes: ```-I dir```
+  - Debug: ```-g```
+  - Release: ```-O0 -O1 -O2 -O3 -Os -Ofast -Og```
+  - Includes: ```-I```
   - Warnings: ```-Wall -Wextra -Wpedantic -Wconversion ...```
 
 ## Makefile Commands of the Template
@@ -50,26 +50,27 @@
 Create the executable in either Debug or Release mode.
 
 ```bash
- cd 4_FinalTemplate
- make -f Makefile build # Default build type is debug
- make -f Makefile build DEBUG=1 # Build type is debug
- make -f Makefile build DEBUG=0 # Build type is release
+ make build COMPILATION_MODE=Debug # Build type is debug
+ make build COMPILATION_MODE=Release # Build type is release
 ```
-
-Note: The *-f* command line argument is optional, if the Makefile is in the current directory.
 
 ### Run the Executable
 
 Run the executable in either Debug or Release mode.
 
 ```bash
- cd 4_FinalTemplate
- make -f Makefile execute # Default build type is debug
- make -f Makefile execute DEBUG=1 # Build type is debug
- make -f Makefile execute DEBUG=0 # Build type is release
+ make execute COMPILATION_MODE=Debug # Build type is debug
+ make execute COMPILATION_MODE=Release # Build type is release
 ```
 
-## Important Makefile Shortcuts
+### Variables of the Makefile Template
+
+  - COMPILATION_MODE: Debug or Release
+  - ENABLE_WARNINGS: 1 (True) or 0 (False)
+  - WARNINGS_AS_ERRORS: 1 (True) or 0 (False)
+  - CPP_STANDARD: c++11, c++14, c++17, etc.
+
+### Important Shortcuts of the Makefile Template
 
   - $@    the file name of the target
   - $<    the name of the first prerequisite (i.e., dependency)
