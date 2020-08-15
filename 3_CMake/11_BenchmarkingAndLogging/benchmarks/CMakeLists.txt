@@ -6,8 +6,6 @@ if(USE_BENCHMARKS)
         set(BENCHMARK_FLAGS "/Ox")
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         set(BENCHMARK_FLAGS "-O3")
-    else()
-        set(BENCHMARK_FLAGS "")
     endif()
 
     add_executable(${BENCHMARK_MAIN} ${BENCHMARK_SOURCES})

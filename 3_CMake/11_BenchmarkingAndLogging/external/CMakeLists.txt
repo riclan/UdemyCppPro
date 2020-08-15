@@ -14,5 +14,5 @@ endif()
 # Celero
 if(USE_BENCHMARKS)
     add_subdirectory(Celero)
-    add_library("${PROJECT}_celero" ALIAS celero)
+    add_library(${LIBRARY_BENCH} ALIAS celero)
 endif()

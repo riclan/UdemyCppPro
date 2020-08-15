@@ -1,4 +1,97 @@
-# Important CMake Commands
+# Template For C++ Projects 
+
+This is a template for C++ projects. What you get:
+
+-   Sources, headers and test files separated in distinct folders.
+-   External libraries that are locally cloned by [Github](https://github.com).
+-   External libraries installed and managed by [Conan](https://conan.io/).
+-   Use of modern [CMake](https://cmake.org/) for building and compiling.
+-   Unit testing, using [GTest](https://github.com/google/googletest), Logging, using [Loguru](https://github.com/emilk/loguru) and Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
+-   Continuous testing with [Travis-CI](https://travis-ci.org/) and [Appveyor](https://www.appveyor.com/).
+-   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
+-   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
+-   Optional: Use of [VSCode](https://code.visualstudio.com/) with the C/C++ and CMakeTools extension.
+
+## Structure
+``` text
+├── CMakeLists.txt
+├── app
+│   └── main.cc
+├── benchmarks
+│   ├── CMakesLists.txt
+│   └── main.cc
+├── docs
+├── ├── Doxyfile
+│   └── html...
+├── external
+│   ├── CMakesLists.txt
+│   ├── linalg...
+│   ├── loguru...
+│   └── Celero...
+├── include
+│   └── MyLib
+│       └── my_lib.h
+├── src
+│   ├── CMakesLists.txt
+│   └── MyLib
+│       ├── CMakesLists.txt
+│       └── my_lib.cc
+└── tests
+    ├── CMakeLists.txt
+    └── main.cc
+```
+
+Sources go in [src/](src/), header files in [include/](include/), main programs in [app/](app),
+tests go in [tests/](tests/) and benchmarks go in [benchmarks/](benchmarks/).
+
+If you add a new executable, say `app/new_executable.cc`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt): 
+
+``` cmake
+add_executable(new_executable app/new_executable.cc)   # Name of exec. and location of file.
+target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the executable to lib built from src/*.cc (if it uses it).
+```
+
+# Software Requirements
+
+  - Windows package installer: [Chocolatey](https://chocolatey.org/)
+  - Linux (Debian) package installer: apt-get
+  - MacOS package installer: [brew](https://brew.sh/index_de)
+  - CMake 3.12+
+  - GNU Makefile
+  - MSVC 2019 (or higher), G++9 (or higher), Clang++9 (or higher)
+  - Code Covergae (only on GNU or Clang Compiler): lcov, gcovr
+
+# Run CMake Targets
+
+  - App Executable:
+    ```
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    cmake --build . --config Release --target CppTemplate_executable
+    ./bin/CppTemplate_executable
+    ```
+  - Code Coverage: 
+    ```
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=ON ..
+    cmake --build . --config Coverage --target CppTemplate_coverage
+    ```
+  - Unit testing: 
+    ```
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Debug ..
+    cmake --build . --config Debug --target CppTemplate_unit_tests
+    ./bin/CppTemplate_unit_tests
+    ```
+  - Benchmarking: 
+    ```
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release -DUSE_BENCHMARKS=ON ..
+    cmake --build . --config Release --target CppTemplate_benchmarks
+    ./bin/CppTemplate_benchmarks
+    ```
+
+# CMake Tutorial:
 
 ## Generating a Project
 
@@ -20,13 +113,8 @@ Assuming that you have already build the CMake project, you can update the gener
  cd build
  cmake .
 ```
-### Options for Generating a Project
 
-#### Generator
-
-The options consists of, for example the [generator](https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#manual:cmake-generators(7)) which could be VisualStudio2019 or Unix-Makefiles.
-
-##### For Windows/Linux with GCC:
+### Generator for GCC and Clang:
 
 ```shell
  cd build
@@ -34,15 +122,12 @@ The options consists of, for example the [generator](https://cmake.org/cmake/hel
  cmake .. -G "Unix Makefiles" # Option 2
 ```
 
-#### Compiler
-
-You can also set the [compiler](https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_TOOLSET.html#variable:CMAKE_GENERATOR_TOOLSET) which could be VisualStudio2019 or GCC/G++.
-
-##### For Windows/Linux with GCC:
+### Generator for MSVC:
 
 ```shell
  cd build
- cmake .. -G "Unix Makefiles" -DCMAKE_CXX_COMPILER:String=g++-9
+ cmake -S .. -B . -G "Visual Studio 16 2019" # Option 1
+ cmake .. -G "Visual Studio 16 2019" # Option 2
 ```
 
 ### Specify the Build Type
@@ -52,7 +137,7 @@ If you want to generate the project, for example, in release mode you have to se
 
 ```shell
  cd build
- cmake -DCMAKE_BUILD_TYPE=Release .. -G "Unix Makefiles"
+ cmake -DCMAKE_BUILD_TYPE=Release ..
 ```
 
 ### Passing Options
@@ -77,7 +162,7 @@ If you want to build the project in parallel you can use the following option.
 
 ```shell
  cd build
- cmake --build . -j 4
+ cmake --build .
 ```
 
 ### Specify the Build Target (Option 1)
@@ -87,7 +172,7 @@ If you want to build a specific target, you can do so.
 
 ```shell
  cd build
- cmake --build . --target ExternalLibraries_Executable -j 4
+ cmake --build . --target ExternalLibraries_Executable
 ```
 
 The target *ExternalLibraries_Executable* is just an example of a possible target name.
@@ -110,7 +195,7 @@ In the default case, the executable is stored in *build/5_ExternalLibraries/app/
 
 ```shell
  cd build
- ./5_ExternalLibraries/app/ExternalLibraries_Executable
+ ./bin/ExternalLibraries_Executable
 ```
 
 ## Different Linking Types
@@ -128,8 +213,7 @@ There are the three following linking types:
    PRIVATE and INTERFACE. It says that A uses B in its implementation and B is
    also used in A's public API.
 
-Example for Boost:
+## Different Library Types
 
-  - PRIVATE: target_include_directories(A PRIVATE ${Boost_INCLUDE_DIRS}) if you only use those Boost headers inside your source files (.cpp) or private header files (.h).
-  - INTERFACE: target_include_directories(A INTERFACE ${Boost_INCLUDE_DIRS}) if you don't use those Boost headers inside your source files (therefore, not needing them to compile A). This means that within your library you can include files directly, but as a user of the library you have to insert libname/
-  - PUBLIC: target_include_directories(A PUBLIC ${Boost_INCLUDE_DIRS}) if you use those Boost headers in your public header files, which are included BOTH in some of A's source files and might also be included in any other client of your A library.
+  - Shared: Shared libraries reduce the amount of code that is duplicated in each program that makes use of the library, keeping the binaries small. It also allows you to replace the shared object with one that is functionally equivalent, without needing to recompile the program that makes use of it. Shared libraries will, however have a small additional cost for the execution.
+  - Static: Static libraries increase the overall size of the binary, but it means that you don't need to carry along a copy of the library that is being used. As the code is connected at compile time there are not any additional run-time loading costs. The code is simply there.
