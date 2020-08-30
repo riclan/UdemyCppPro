@@ -1,5 +1,4 @@
-# Template For C++ Projects 
+# C++ Projekte für Fortgeschrittene: CMake, Tests und Tooling
 
-This is a template for C++ projects.
-THis tutorial contains the basics of Make and CMake.
-
+Dies ist der Code zu meinem Udemy Kurs:
+*C++ Projekte für Fortgeschrittene: CMake, Tests und Tooling* von Jan Schaffranek.
