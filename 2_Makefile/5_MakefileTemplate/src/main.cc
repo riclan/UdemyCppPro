@@ -9,4 +9,6 @@ int main()
     int i = 128000;
     short j = i;
     std::cout << j << std::endl;
+
+    return 0;
 }

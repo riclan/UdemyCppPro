@@ -17,10 +17,10 @@ CPP_COMPILER_CALL = $(CPP_COMPILER) $(CPP_COMPILER_FLAGS)
 ## TARGETS ##
 #############
 build: my_lib.o
-	$(CPP_COMPILER_CALL) main.cc -o $(EXECUTABLE_NAME) my_lib.o
+	$(CPP_COMPILER_CALL) main.cc my_lib.o -o $(EXECUTABLE_NAME)
 
 my_lib.o:
-	$(CPP_COMPILER_CALL) my_lib.cc -c my_lib.cc
+	$(CPP_COMPILER_CALL) my_lib.cc -c
 
 execute:
 	./$(EXECUTABLE_NAME)

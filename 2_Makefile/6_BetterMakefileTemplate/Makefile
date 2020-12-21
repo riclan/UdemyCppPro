@@ -4,15 +4,16 @@
 COMPILATION_MODE ?= Debug
 ENABLE_WARNINGS ?= 1
 WARNINGS_AS_ERRORS ?= 0
+EXECUTABLE_PREFIX ?= main
 CPP_COMPILER ?= g++ # g++, clang++
-CPP_STANDARD ?= c++2a # c++11, c++14, c++17, c++2a
+CPP_STANDARD ?= c++17 # c++11, c++14, c++17, c++20
 
 ifeq ($(COMPILATION_MODE), Debug)
 CPP_COMPILER_FLAGS = -g -O0 -std=$(CPP_STANDARD)
-EXECUTABLE_NAME = mainDebug
+EXECUTABLE_NAME = $(EXECUTABLE_PREFIX)Debug
 else
-CPP_COMPILER_FLAGS = -O3 -std=$(CPP_STANDARD)
-EXECUTABLE_NAME = mainRelease
+CPP_COMPILER_FLAGS = -O3 -Wall -std=$(CPP_STANDARD)
+EXECUTABLE_NAME = $(EXECUTABLE_PREFIX)Release
 endif
 
 ifeq ($(ENABLE_WARNINGS), 1)
@@ -36,7 +37,7 @@ CC_SRCS = $(wildcard $(SOURCE_DIR)/*.cc)
 CC_OBJECTS = $(patsubst $(SOURCE_DIR)/%.cc, $(BUILD_DIR)/%.o, $(CC_SRCS))
 
 ####################
-## PSEUDO TARGETS ##
+## PESUDO TARGETS ##
 ####################
 build: $(BUILD_DIR)/$(EXECUTABLE_NAME)
 

@@ -24,7 +24,7 @@ CC_SRCS = $(wildcard $(SOURCE_DIR)/*.cc)
 CC_OBJECTS = $(patsubst $(SOURCE_DIR)/%.cc, $(BUILD_DIR)/%.o, $(CC_SRCS))
 
 ####################
-## PSEUDO TARGETS ##
+## PESUDO TARGETS ##
 ####################
 build: $(BUILD_DIR)/$(EXECUTABLE_NAME)
 

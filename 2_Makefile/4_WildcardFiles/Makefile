@@ -20,7 +20,7 @@ CC_SRCS = $(wildcard *.cc)
 CC_OBJECTS = $(patsubst %.cc, %.o, $(CC_SRCS))
 
 ####################
-## PSEUDO TARGETS ##
+## PESUDO TARGETS ##
 ####################
 build: $(EXECUTABLE_NAME)
 
