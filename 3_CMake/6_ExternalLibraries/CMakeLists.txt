@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Project/Library Names
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(LIBRARY_LINALG "${PROJECT}_LinAlg")
+set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
 set(MAIN            "${PROJECT}_Executable")
 
 # Configuration Files
