@@ -4,7 +4,7 @@ Dies ist der Code zu meinem Udemy Kurs:
 *C++ Projekte für Fortgeschrittene: CMake, Tests und Tooling* von Jan Schaffranek.
 
 Erhalte den Kurs vom 01.12.2020 bis zum 31.12.2020 zum aktuellen Bestpreis.
-Rabatt-Link: [Cpp Projekte Kurs im Rabatt](https://www.udemy.com/course/c-projekte-fur-fortgeschrittene-cmake-tests-und-tooling/?couponCode=FRANNECK_DEC_2020)
+Rabatt-Link: [Cpp Projekte Kurs im Rabatt](https://www.udemy.com/course/c-projekte-fur-fortgeschrittene-cmake-tests-und-tooling/?couponCode=FRANNECK_JAN_2021)
 
 ## Bewertungen von Kursteilnehmern
 
