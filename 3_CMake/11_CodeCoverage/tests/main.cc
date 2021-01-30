@@ -4,6 +4,11 @@
 
 #include "my_lib.h"
 
+TEST_CASE("Test my cout function", "TestCout")
+{
+    cout_hello_world();
+}
+
 TEST_CASE("Test my vector function", "TestVector")
 {
     linalg::aliases::float3 v = print_linalg_vector();
