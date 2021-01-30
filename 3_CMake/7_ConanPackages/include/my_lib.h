@@ -1,9 +1,9 @@
 #pragma once
 
-void print_hello_world();
+#include "linalg.h"
 
 void cout_hello_world();
 
-void print_linalg_vector();
+linalg::aliases::float3 print_linalg_vector();
 
-void print_boost_version();
+bool print_boost_version();
