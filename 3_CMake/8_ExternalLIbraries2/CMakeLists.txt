@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(PROJECT "ConanPackages")
+set(PROJECT "ExternalLibraries2")
 
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 

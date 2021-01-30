@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
-set(PROJECT "BetterProjectStructure")
+set(PROJECT "DoxygenDocumentation")
 
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 
@@ -9,27 +9,22 @@ set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
-# Project/Library Names
-set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
-set(MAIN            "${PROJECT}_Executable")
-
-# Configuration Files
-configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
-               "${PROJECT_BINARY_DIR}/ProjectConfig.h" @ONLY)
-
-# Include own cmake modules
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+# Cmake modules
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(Documentation)
 
-# Add conan packages
+# Project/Library Names
+set(LIBRARY_NAME    "${PROJECT}_MyLib")
+set(MAIN            "${PROJECT}_Executable")
+
+# Add conan libraries
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-# Add externals
+# Add external libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/external/")
 
-# Add libraries
+# Add first-party libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/src/")
 
 # Add executables
