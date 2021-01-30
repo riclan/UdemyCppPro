@@ -1,18 +1,16 @@
-# LinAlg
+# Linalg
 set(LIBRARY_INCLUDES "linalg/")
-add_library(${LIBRARY_LINALG} INTERFACE)
-target_include_directories(${LIBRARY_LINALG} INTERFACE ${LIBRARY_INCLUDES})
+add_library(linalg INTERFACE)
+target_include_directories(linalg SYSTEM INTERFACE ${LIBRARY_INCLUDES})
 
 # Loguru
-file(GLOB LOGURU_SOURCES "loguru/*.cpp")
-add_library(${LIBRARY_LOG} ${LOGURU_SOURCES})
-target_include_directories(${LIBRARY_LOG} PUBLIC loguru)
-if(UNIX)
-    target_link_libraries(${LIBRARY_LOG} PUBLIC pthread dl)
-endif()
-
-# Celero
-if(USE_BENCHMARKS)
-    add_subdirectory(Celero)
-    add_library(${LIBRARY_BENCH} ALIAS celero)
+set(LOGURU_SOURCES "loguru/loguru.cpp")
+set(LOGURU_HEADERS "loguru/loguru.hpp")
+set(LOGURU_INCLUDES "loguru/")
+add_library(loguru ${LOGURU_SOURCES} ${LOGURU_HEADERS})
+target_include_directories(loguru PUBLIC ${LOGURU_INCLUDES})
+find_package(Threads)
+target_link_libraries(loguru ${CMAKE_THREAD_LIBS_INIT}) # For pthreads
+if(NOT WIN32)
+    target_link_libraries(loguru dl) # For ldl
 endif()

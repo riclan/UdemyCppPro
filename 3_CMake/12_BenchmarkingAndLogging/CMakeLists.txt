@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
-set(PROJECT "BetterProjectStructure")
+set(PROJECT "CodeCoverage")
 
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 
@@ -9,49 +9,46 @@ set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
-# Project/Library Names
-set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
-set(LIBRARY_LOG     "${PROJECT}_loguru")
-set(LIBRARY_BENCH   "${PROJECT}_celero")
-set(MAIN            "${PROJECT}_Executable")
-set(TEST_MAIN       "${PROJECT}_unit_tests")
-
 # Options
-option(USE_GCOV         "Create a GCov-enabled build."      OFF)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build"  OFF)
+option(ENABLE_TESTING   "Enable a Unit Testing buid."   ON)
+option(ENABLE_COVERAGE  "Enable a Code Coverage buid."  OFF)
 
-# Configuration Files
-configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
-               "${PROJECT_BINARY_DIR}/ProjectConfig.h" @ONLY)
-
-# Include own cmake modules
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+# Cmake modules
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(Documentation)
-include(CTest)
-if(USE_GCOV)
+if (ENABLE_TESTING OR ENABLE_COVERAGE)
+    include(CTest)
+endif()
+if (ENABLE_COVERAGE)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         include(CodeCoverage)
     else()
-        message("You must use a GNU or Clang Compiler for CodeCoverage!")
+        message("Coverage only for GNU|Clang")
+        set(ENABLE_COVERAGE OFF)
     endif()
 endif()
 
-# Add conan packages
+# Project/Library Names
+set(LIBRARY_NAME    "${PROJECT}_MyLib")
+set(MAIN            "${PROJECT}_Executable")
+set(TEST_MAIN       "${PROJECT}_unit_tests")
+set(COVERAGE_MAIN   "${PROJECT}_coverage")
+
+# Add conan libraries
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-# Add externals
-add_subdirectory(external)
+# Add external libraries
+add_subdirectory("${PROJECT_SOURCE_DIR}/external/")
 
-# Add libraries
-add_subdirectory(src)
+# Add first-party libraries
+add_subdirectory("${PROJECT_SOURCE_DIR}/src/")
 
 # Add executables
-add_subdirectory(app)
+add_subdirectory("${PROJECT_SOURCE_DIR}/app/")
 
 # Add tests
-add_subdirectory(tests)
-
-# Add benchmarks
-add_subdirectory(benchmarks)
+if (ENABLE_TESTING OR ENABLE_COVERAGE)
+    enable_testing()
+    add_subdirectory("${PROJECT_SOURCE_DIR}/tests/")
+endif()
