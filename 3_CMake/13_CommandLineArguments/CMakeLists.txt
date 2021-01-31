@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(PROJECT "BenchmarkingAndLogging")
+set(PROJECT "CommandLineArguments")
 
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 

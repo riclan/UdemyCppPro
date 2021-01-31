@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "loguru.hpp"
+#include "cxxopts.hpp"
 
 #include "my_lib.h"
 
@@ -20,9 +21,39 @@ int main(int argc, char **argv)
     LOG_F(WARNING, "Hello this is a warning!");
     LOG_F(ERROR, "Hello this is an error!");
 
-    // int a = 2;
-    // int b = 3;
-    // CHECK_EQ_F(a, b, "You can also supply a custom message, like to print something: %d", a + b);
+    cxxopts::Options options("MyProgram", "One line description of MyProgram");
+
+    options.add_options()
+        ("d,debug", "Enable debugging", cxxopts::value<bool>())
+        ("i,integer", "Int param", cxxopts::value<int>())
+        ("f,file", "File name", cxxopts::value<std::string>())
+        ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"));
+
+    auto result = options.parse(argc, argv);
+
+    if (result.count("debug"))
+    {
+        bool debug = result["debug"].as<bool>();
+        std::cout << "debug: " << debug << std::endl;
+    }
+
+    if (result.count("integer"))
+    {
+        int integer = result["integer"].as<int>();
+        std::cout << "integer: " << integer << std::endl;
+    }
+
+    if (result.count("file"))
+    {
+        std::string file = result["file"].as<std::string>();
+        std::cout << "file: " << file << std::endl;
+    }
+
+    if (result.count("verbose"))
+    {
+        bool verbose = result["verbose"].as<bool>();
+        std::cout << "verbose: " << verbose << std::endl;
+    }
 
     return 0;
 }

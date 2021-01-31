@@ -1,13 +1,45 @@
 #include "test-linalg.h"
 
+TEST_CASE( "matrix transpose produces correct result dimensions" )
+{
+    REQUIRE( transpose(float1x1()) == float1x1() );
+    REQUIRE( transpose(float1x2()) == float2x1() );
+    REQUIRE( transpose(float1x3()) == float3x1() );
+    REQUIRE( transpose(float1x4()) == float4x1() );
+    REQUIRE( transpose(float2x1()) == float1x2() );
+    REQUIRE( transpose(float2x2()) == float2x2() );
+    REQUIRE( transpose(float2x3()) == float3x2() );
+    REQUIRE( transpose(float2x4()) == float4x2() );
+    REQUIRE( transpose(float3x1()) == float1x3() );
+    REQUIRE( transpose(float3x2()) == float2x3() );
+    REQUIRE( transpose(float3x3()) == float3x3() );
+    REQUIRE( transpose(float3x4()) == float4x3() );
+    REQUIRE( transpose(float4x1()) == float1x4() );
+    REQUIRE( transpose(float4x2()) == float2x4() );
+    REQUIRE( transpose(float4x3()) == float3x4() );
+    REQUIRE( transpose(float4x4()) == float4x4() );
+
+    REQUIRE( transpose(float1()) == float1x1() );
+    REQUIRE( transpose(float2()) == float1x2() );
+    REQUIRE( transpose(float3()) == float1x3() );
+    REQUIRE( transpose(float4()) == float1x4() );
+}
+
 TEST_CASE( "matrix multiplication produces correct result dimensions" )
 {
+    REQUIRE( mul(float1x1(), float1()) == float1() );
+    REQUIRE( mul(float1x2(), float2()) == float1() );
+    REQUIRE( mul(float1x3(), float3()) == float1() );
+    REQUIRE( mul(float1x4(), float4()) == float1() );
+    REQUIRE( mul(float2x1(), float1()) == float2() );
     REQUIRE( mul(float2x2(), float2()) == float2() );
     REQUIRE( mul(float2x3(), float3()) == float2() );
     REQUIRE( mul(float2x4(), float4()) == float2() );
+    REQUIRE( mul(float3x1(), float1()) == float3() );
     REQUIRE( mul(float3x2(), float2()) == float3() );
     REQUIRE( mul(float3x3(), float3()) == float3() );
     REQUIRE( mul(float3x4(), float4()) == float3() );
+    REQUIRE( mul(float4x1(), float1()) == float4() );
     REQUIRE( mul(float4x2(), float2()) == float4() );
     REQUIRE( mul(float4x3(), float3()) == float4() );
     REQUIRE( mul(float4x4(), float4()) == float4() );
@@ -41,20 +73,55 @@ TEST_CASE( "matrix multiplication produces correct result dimensions" )
     REQUIRE( mul(float4x4(), float4x4()) == float4x4() );
 
     // Outer product of vec<T,M> and vec<T,N> is equivalent to product of Mx1 and 1xN matrices
+    REQUIRE( outerprod(float1(), float1()) == float1x1() );
+    REQUIRE( outerprod(float1(), float2()) == float1x2() );
+    REQUIRE( outerprod(float1(), float3()) == float1x3() );
+    REQUIRE( outerprod(float1(), float4()) == float1x4() );
+    REQUIRE( outerprod(float2(), float1()) == float2x1() );
     REQUIRE( outerprod(float2(), float2()) == float2x2() );
     REQUIRE( outerprod(float2(), float3()) == float2x3() );
     REQUIRE( outerprod(float2(), float4()) == float2x4() );
+    REQUIRE( outerprod(float3(), float1()) == float3x1() );
     REQUIRE( outerprod(float3(), float2()) == float3x2() );
     REQUIRE( outerprod(float3(), float3()) == float3x3() );
     REQUIRE( outerprod(float3(), float4()) == float3x4() );
+    REQUIRE( outerprod(float4(), float1()) == float4x1() );
     REQUIRE( outerprod(float4(), float2()) == float4x2() );
     REQUIRE( outerprod(float4(), float3()) == float4x3() );
     REQUIRE( outerprod(float4(), float4()) == float4x4() );
+
+    // Row vector x matrix products can be emulated using the transpose function
+    REQUIRE( mul(transpose(float1()), float1x1()) == transpose(float1()) );
+    REQUIRE( mul(transpose(float2()), float2x1()) == transpose(float1()) );
+    REQUIRE( mul(transpose(float3()), float3x1()) == transpose(float1()) );
+    REQUIRE( mul(transpose(float4()), float4x1()) == transpose(float1()) );
+    REQUIRE( mul(transpose(float1()), float1x2()) == transpose(float2()) );
+    REQUIRE( mul(transpose(float2()), float2x2()) == transpose(float2()) );
+    REQUIRE( mul(transpose(float3()), float3x2()) == transpose(float2()) );
+    REQUIRE( mul(transpose(float4()), float4x2()) == transpose(float2()) );
+    REQUIRE( mul(transpose(float1()), float1x3()) == transpose(float3()) );
+    REQUIRE( mul(transpose(float2()), float2x3()) == transpose(float3()) );
+    REQUIRE( mul(transpose(float3()), float3x3()) == transpose(float3()) );
+    REQUIRE( mul(transpose(float4()), float4x3()) == transpose(float3()) );
+    REQUIRE( mul(transpose(float1()), float1x4()) == transpose(float4()) );
+    REQUIRE( mul(transpose(float2()), float2x4()) == transpose(float4()) );
+    REQUIRE( mul(transpose(float3()), float3x4()) == transpose(float4()) );
+    REQUIRE( mul(transpose(float4()), float4x4()) == transpose(float4()) );
 }
 
 TEST_CASE_TEMPLATE( "matrix diagonal and trace are correct", T, double, float, int, short )
 {
     random_number_generator rng;
+
+    SUBCASE("1x1 matrices")
+    {
+        for(int i=0; i<reps; ++i)
+        {
+            const auto mat = rng.get<linalg::mat<T,1,1>>();
+            CHECK(diagonal(mat) == linalg::vec<T,1>{mat[0][0]});
+            CHECK(trace(mat) == mat[0][0]);
+        }
+    }
 
     SUBCASE("2x2 matrices")
     {
@@ -217,7 +284,7 @@ TEST_CASE_TEMPLATE( "matrix inverse is correct for general case", T, float, doub
 {
     const linalg::mat<T,4,4> mat {{1,2,3,4}, {5,-6,7,8}, {9,10,-11,12}, {13,14,15,-16}};
     const linalg::mat<T,4,4> inv = inverse(mat);
-    const linalg::mat<T,4,4> id = mat * inv;
+    const linalg::mat<T,4,4> id = mul(mat, inv);
     for(int j=0; j<4; ++j)
     {
         for(int i=0; i<4; ++i)
