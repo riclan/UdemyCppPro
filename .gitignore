@@ -8,9 +8,8 @@
 TODO.txt
 *.pptx
 *.exe
-1_Introduction/
-4_Outro/
 build/**/*
+build/
 
 ################################
 ########### FOLDERS ############
