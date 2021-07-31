@@ -4,27 +4,32 @@
 !*.*
 # Unignore all dirs
 !*/
-
-TODO.txt
-*.pptx
-*.exe
-build/**/*
-build/
-**/linalg/
+!Makefile
+!LICENSE
 
 ################################
 ########### FOLDERS ############
 ################################
 # directories
+build/**/*
+build/
 build/
 !2_Makefile/*/build/
 .vscode/
 html/
 latex/
+linalg/
+linalg
+loguru/
+loguru
 
 ################################
 ############ C/C++ #############
 ################################
+TODO.txt
+*.pptx
+*.exe
+
 # Prerequisites
 *.d
 # Compiled Object files
