@@ -15,6 +15,13 @@ option(ENABLE_TESTING       "Enable a Unit Testing buid."           ON)
 option(ENABLE_COVERAGE      "Enable a Code Coverage buid."          OFF)
 option(ENABLE_BENCHMARKS    "Enable a Code Coverage buid."          ON)
 
+# Tooling
+set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
+set(CLANG_TIDY_EXE                  "clang-tidy")
+set(CLANG_TIDY_ARGS                 "--extra-arg-before=-std=${CMAKE_CXX_STANDARD}")
+set(CMAKE_CXX_CLANG_TIDY            "${CLANG_TIDY_EXE};${CLANG_TIDY_ARGS}")
+set(CMAKE_CXX_CLANG_FORMAT          "clang-format")
+
 # Cmake modules
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(ConfigSafeGuards)
@@ -31,6 +38,7 @@ if (ENABLE_COVERAGE)
         set(ENABLE_COVERAGE OFF)
     endif()
 endif()
+include(RunClangTidy)
 
 # Project/Library Names
 set(LIBRARY_NAME    ${PROJECT}_MyLib)
