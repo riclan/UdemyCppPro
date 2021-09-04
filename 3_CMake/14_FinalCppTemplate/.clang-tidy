@@ -5,7 +5,8 @@ bugprone-*,
 cppcoreguidelines-*,
 modernize-*,
 performance-*,
--cppcoreguidelines-pro-type-vararg,-warnings-as-errors'
+-cppcoreguidelines-pro-type-vararg,
+-warnings-as-errors'
 HeaderFilterRegex: '*'
 AnalyzeTemporaryDtors: false
 WarningsAsErrors: '-'

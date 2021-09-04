@@ -38,7 +38,6 @@ if (ENABLE_COVERAGE)
         set(ENABLE_COVERAGE OFF)
     endif()
 endif()
-include(RunClangTidy)
 
 # Project/Library Names
 set(LIBRARY_NAME    ${PROJECT}_MyLib)
