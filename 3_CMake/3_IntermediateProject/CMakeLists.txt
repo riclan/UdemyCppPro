@@ -1,14 +1,15 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 
 set(PROJECT "IntermediateProject")
 
-project("${PROJECT}_Project" VERSION 1.0.0 LANGUAGES CXX)
+project(${PROJECT}_Project VERSION 1.0.0 LANGUAGES CXX)
 
-set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(MAIN            "${PROJECT}_Executable")
+set(LIBRARY_NAME "${PROJECT}_MyLib")
+set(EXECUTABLE_NAME "${PROJECT}_Executable")
 
-# add_library(${LIBRARY_NAME} STATIC "${PROJECT_SOURCE_DIR}/src/my_lib.cc")
+add_library(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/src/my_lib.cc")
 include_directories(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/include/")
 
-add_executable(${MAIN} "${PROJECT_SOURCE_DIR}/app/main.cc")
-target_link_libraries(${MAIN} PUBLIC "${PROJECT_SOURCE_DIR}/build/libIntermediateProject_MyLib.a")
+add_executable(${EXECUTABLE_NAME} "${PROJECT_SOURCE_DIR}/app/main.cc")
+
+target_link_libraries(${EXECUTABLE_NAME} ${LIBRARY_NAME})
