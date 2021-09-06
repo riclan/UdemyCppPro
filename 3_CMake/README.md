@@ -53,7 +53,7 @@ target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the execut
   - Windows package installer: [Chocolatey](https://chocolatey.org/)
   - Linux (Debian) package installer: apt-get
   - MacOS package installer: [brew](https://brew.sh/index_de)
-  - CMake 3.12+
+  - CMake 3.16+
   - GNU Makefile
   - Doxygen
   - Conan
