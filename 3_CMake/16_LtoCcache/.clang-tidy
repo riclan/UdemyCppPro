@@ -9,6 +9,5 @@ performance-*,
 -warnings-as-errors'
 HeaderFilterRegex: '*'
 AnalyzeTemporaryDtors: false
-WarningsAsErrors: '-'
-CheckOptions:
+WarningsAsErrors: ''
 ...
