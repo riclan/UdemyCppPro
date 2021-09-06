@@ -5,15 +5,18 @@ set(PROJECT "CppTemplate")
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 
 # Global CMake variables are set here
-set(CMAKE_CXX_STANDARD          17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS        OFF)
+set(CMAKE_CXX_STANDARD              17)
+set(CMAKE_CXX_STANDARD_REQUIRED     ON)
+set(CMAKE_CXX_EXTENSIONS            OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 
 # Options
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING       "Enable a Unit Testing buid."           ON)
 option(ENABLE_COVERAGE      "Enable a Code Coverage buid."          OFF)
 option(ENABLE_BENCHMARKS    "Enable a Code Coverage buid."          ON)
+option(ENABLE_CLANG_TIDY    "Enable a clang tidy checks."           ON)
+option(ENABLE_CPPCHECK      "Enable a cppcheck checks."             ON)
 
 # Cmake modules
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
@@ -30,6 +33,9 @@ if (ENABLE_COVERAGE)
         message("Coverage only for GNU|Clang")
         set(ENABLE_COVERAGE OFF)
     endif()
+endif()
+if (ENABLE_CLANG_TIDY OR ENABLE_CPPCHECK)
+    include(StaticAnalyzers)
 endif()
 
 # Project/Library Names
