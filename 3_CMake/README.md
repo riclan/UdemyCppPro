@@ -17,6 +17,7 @@ This is a template for C++ projects. What you get:
 ``` text
 ├── CMakeLists.txt
 ├── app
+│   ├── CMakesLists.txt
 │   └── main.cc
 ├── benchmarks
 │   ├── CMakesLists.txt
