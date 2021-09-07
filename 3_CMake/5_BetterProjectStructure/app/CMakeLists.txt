@@ -1,5 +1,6 @@
 # Main Executable
-add_executable(${MAIN} "main.cc")
-target_link_libraries(${MAIN} PUBLIC ${LIBRARY_NAME})
-target_include_directories(${MAIN} PUBLIC ${PROJECT_BINARY_DIR})
-target_compile_features(${LIBRARY_NAME} PUBLIC cxx_std_17)
+set(EXECUTABLE_SOURCES "main.cc")
+
+add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${LIBRARY_NAME})
+target_compile_features(${EXECUTABLE_NAME} PUBLIC cxx_std_17)
