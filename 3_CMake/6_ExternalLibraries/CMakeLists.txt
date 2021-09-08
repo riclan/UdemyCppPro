@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT "ExternalLibraries")
+set(PROJECT "BetterProjectStructure")
 
-project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
+project(${PROJECT}_Project VERSION 1.2.3 LANGUAGES CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD          17)
@@ -13,11 +13,12 @@ set(CMAKE_CXX_EXTENSIONS        OFF)
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
 set(EXECUTABLE_NAME "${PROJECT}_Executable")
 
-# Add external libraries
-add_subdirectory("${PROJECT_SOURCE_DIR}/external/")
+# Configuration File
+configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
+               "${PROJECT_SOURCE_DIR}/include/ProjectConfig.h" @ONLY)
 
-# Add first-party libraries
-add_subdirectory("${PROJECT_SOURCE_DIR}/src/")
+# Add libraries
+add_subdirectory("${PROJECT_SOURCE_DIR}/src")
 
-# Add executables
-add_subdirectory("${PROJECT_SOURCE_DIR}/app/")
+# Add executable
+add_subdirectory("${PROJECT_SOURCE_DIR}/app")
