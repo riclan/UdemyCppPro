@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Project/Library Names
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(MAIN            "${PROJECT}_Executable")
+set(EXECUTABLE_NAME "${PROJECT}_Executable")
 
 # Add conan libraries
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)

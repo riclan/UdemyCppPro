@@ -31,7 +31,7 @@ endif()
 
 # Project/Library Names
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(MAIN            "${PROJECT}_Executable")
+set(EXECUTABLE_NAME "${PROJECT}_Executable")
 set(TEST_MAIN       "${PROJECT}_unit_tests")
 set(COVERAGE_MAIN   "${PROJECT}_coverage")
 set(BENCHMARK_MAIN  "${PROJECT}_benchmarks")

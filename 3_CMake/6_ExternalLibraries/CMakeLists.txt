@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Project/Library Names
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(MAIN            "${PROJECT}_Executable")
+set(EXECUTABLE_NAME "${PROJECT}_Executable")
 
 # Add external libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/external/")

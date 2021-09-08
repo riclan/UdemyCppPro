@@ -21,7 +21,7 @@ endif()
 
 # Project/Library Names
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(MAIN            "${PROJECT}_Executable")
+set(EXECUTABLE_NAME "${PROJECT}_Executable")
 set(TEST_MAIN       "${PROJECT}_unit_tests")
 
 # Add conan libraries

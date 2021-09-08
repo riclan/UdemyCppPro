@@ -21,7 +21,7 @@ configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
                "${PROJECT_SOURCE_DIR}/include/ProjectConfig.h" @ONLY)
 
 add_library(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/src/my_lib.cc")
-include_directories(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/include/")
+target_include_directories(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/include/")
 
 add_executable(${EXECUTABLE_NAME} "${PROJECT_SOURCE_DIR}/app/main.cc")
 

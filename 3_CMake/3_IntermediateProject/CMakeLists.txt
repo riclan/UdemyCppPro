@@ -8,7 +8,7 @@ set(LIBRARY_NAME "${PROJECT}_MyLib")
 set(EXECUTABLE_NAME "${PROJECT}_Executable")
 
 add_library(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/src/my_lib.cc")
-include_directories(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/include/")
+target_include_directories(${LIBRARY_NAME} "${PROJECT_SOURCE_DIR}/include/")
 
 add_executable(${EXECUTABLE_NAME} "${PROJECT_SOURCE_DIR}/app/main.cc")
 
