@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT "BetterProjectStructure")
+set(PROJECT "ExternalLibraries")
 
 project(${PROJECT}_Project VERSION 1.2.3 LANGUAGES CXX)
 
@@ -16,6 +16,9 @@ set(EXECUTABLE_NAME "${PROJECT}_Executable")
 # Configuration File
 configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
                "${PROJECT_SOURCE_DIR}/include/ProjectConfig.h" @ONLY)
+
+# Add external libraries
+add_subdirectory("${PROJECT_SOURCE_DIR}/external")
 
 # Add libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/src")
