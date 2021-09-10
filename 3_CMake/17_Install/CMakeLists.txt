@@ -41,6 +41,7 @@ if (ENABLE_CLANG_TIDY OR ENABLE_CPPCHECK)
 endif()
 if (ENABLE_LTO)
     include(LTO)
+    find_lto(CXX)
 endif()
 if (ENABLE_CCACHE)
     include(Ccache)
@@ -85,3 +86,8 @@ endif()
 if (ENABLE_BENCHMARKING)
     add_subdirectory(benchmarks)
 endif()
+
+install (TARGETS ${EXECUTABLE_NAME}
+         ARCHIVE DESTINATION lib
+         LIBRARY DESTINATION lib
+         RUNTIME DESTINATION bin)
