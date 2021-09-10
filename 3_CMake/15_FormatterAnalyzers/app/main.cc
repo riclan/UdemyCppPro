@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "loguru.hpp"
 #include "cxxopts.hpp"
+#include "loguru.hpp"
 
 #include "my_lib.h"
 
@@ -23,11 +23,12 @@ auto main(int argc, char **argv) -> int
 
     cxxopts::Options options("MyProgram", "One line description of MyProgram");
 
-    options.add_options()
-        ("d,debug", "Enable debugging", cxxopts::value<bool>())
-        ("i,integer", "Int param", cxxopts::value<int>())
-        ("f,file", "File name", cxxopts::value<std::string>())
-        ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"));
+    options.add_options()("d,debug", "Enable debugging", cxxopts::value<bool>())("i,integer",
+                                                                                 "Int param",
+                                                                                 cxxopts::value<int>())(
+        "f,file",
+        "File name",
+        cxxopts::value<std::string>())("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"));
 
     auto result = options.parse(argc, argv);
 
@@ -55,7 +56,7 @@ auto main(int argc, char **argv) -> int
         std::cout << "verbose: " << verbose << std::endl;
     }
 
-    // int a = 22;
+    int a = 22;
 
     return 0;
 }
