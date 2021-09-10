@@ -87,7 +87,12 @@ if (ENABLE_BENCHMARKING)
     add_subdirectory(benchmarks)
 endif()
 
-install (TARGETS ${EXECUTABLE_NAME}
-         ARCHIVE DESTINATION lib
-         LIBRARY DESTINATION lib
-         RUNTIME DESTINATION bin)
+install(TARGETS ${EXECUTABLE_NAME}
+        EXPORT ${LIBRARY_NAME}
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin)
+
+install(TARGETS ${LIBRARY_NAME}
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib)
