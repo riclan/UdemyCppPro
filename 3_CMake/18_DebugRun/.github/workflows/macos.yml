@@ -1,0 +1,33 @@
+name: MacOS CI Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: setup
+      run: |
+        make setup
+    - name: prepare
+      run: |
+        make prepare
+    - name: configure
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+    - name: build
+      run: |
+        make CppTemplate_unit_tests
+    - name: test
+      run: |
+        ctest --build-config Debug
