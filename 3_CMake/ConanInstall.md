@@ -2,6 +2,8 @@
 
 Official installation guide is [here](https://docs.conan.io/en/latest/installation.html).
 
+The conan database is [here](https://conan.io/center/).
+
 ## For Windows
 
 1. Install Python3 (>=3.4), for example by [Anaconda](https://www.anaconda.com/) or by [Chocolatey](https://chocolatey.org/)

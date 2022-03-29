@@ -28,6 +28,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
 add_subdirectory(configured)
 add_subdirectory(external)
 add_subdirectory(src)
