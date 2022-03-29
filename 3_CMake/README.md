@@ -57,22 +57,6 @@ cd build
 cmake -DMY_OPTION=[ON|OFF] .. 
 ```
 
-# Build a Project
-
-To build a project, you need to generate it beforehand.
-Building a project is pretty straightforward, by typing the following.
-
-```bash
-cmake --build <dir> [<options>] [-- <build-tool-options>]
-```
-
-If you want to build the project in parallel you can use the following option.
-
-```bash
-cd build
-cmake --build .
-```
-
 ## Specify the Build Target (Option 1)
 
 The standard build command would build all created targets within the CMakeLists.
