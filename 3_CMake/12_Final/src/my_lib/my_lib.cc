@@ -2,7 +2,7 @@
 
 #include "my_lib.h"
 
-void cout_hello_world()
+void print_hello_world()
 {
     std::cout << "Cout: Hello World" << '\n';
 }

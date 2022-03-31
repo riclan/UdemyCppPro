@@ -1,10 +1,16 @@
 #pragma once
 
 /**
- * @brief Couts hello world to the console.
+ * @brief Prints hello world the console.
  *
- * @return void
  */
-void cout_hello_world();
+void print_hello_world();
 
+
+/**
+ * @brief Compute n faculty (n!)
+ *
+ * @param number Input number n
+ * @return Faculty of n
+ */
 unsigned int factorial(unsigned int number);
