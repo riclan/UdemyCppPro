@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT "CppTemplate")
-
-project("Project" VERSION 1.2.3 LANGUAGES C CXX)
+project("CppTemplate" VERSION 1.0.0 LANGUAGES C CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD              17)
@@ -30,13 +28,20 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(ConfigSafeGuards)
 include(Warnings)
 include(Docs)
-include(CodeCoverage)
 include(AddGitSubmodule)
 include(FetchContent)
 
 include(StaticAnalyzers)
 include(LTO)
 include(Ccache)
+
+if (ENABLE_TESTING)
+    include(CTest)
+    endif()
+if (ENABLE_COVERAGE)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
+endif()
 
 if (ENABLE_LTO)
     find_lto(CXX)
@@ -63,7 +68,9 @@ FetchContent_MakeAvailable(spdlog)
 if(USE_CONAN)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
-else() # Note: VCPKG need more adaptations in cmake files
+else()
+# Note: VCPKG need more adaptations in cmake files
+# Also, rename the _vcpkg.json file to vcpkg.json
     find_package(Catch2 CONFIG REQUIRED)
     find_package(cxxopts CONFIG REQUIRED)
 endif()

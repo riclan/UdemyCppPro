@@ -15,11 +15,10 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv)
 {
-    print_hello_world();
+    const auto welcome_message = fmt::format("Welcome to {} v{}\n", project_name, project_version);
+    spdlog::info(welcome_message);
 
-    spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));
-
-    cxxopts::Options options(project_name.data(), "This is all you need to start with C++ projects.");
+    cxxopts::Options options(project_name.data(), welcome_message);
 
     options.add_options("arguments")
         ("h,help", "Print usage")
@@ -28,7 +27,7 @@ int main(int argc, char **argv)
 
     auto result = options.parse(argc, argv);
 
-    if (result.count("help"))
+    if (argc == 1 || result.count("help"))
     {
         std::cout << options.help() << '\n';
         return 0;
@@ -53,14 +52,14 @@ int main(int argc, char **argv)
         fmt::print("Opening file: {}\n", filename);
     }
 
-    std::ifstream ifs(filename);
+    auto ifs = std::ifstream{filename};
 
     if (!ifs.is_open())
     {
         return 1;
     }
 
-    json parsed_data = json::parse(ifs);
+    const auto parsed_data = json::parse(ifs);
 
     if (verbose)
     {

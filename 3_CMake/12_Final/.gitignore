@@ -5,7 +5,8 @@
 build/
 .vscode/
 html/
-.mypy_cache/
+latex/
+external/json/
 
 ################################
 ############ C/C++ #############
